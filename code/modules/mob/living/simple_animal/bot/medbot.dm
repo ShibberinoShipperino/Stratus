@@ -448,7 +448,7 @@
 	var/reagent_id = treatments[treatment_type]
 	if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume) // Prioritise use of the beaker
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
+			if(!C.reagents.has_reagent(R.id) || !internalsafety)
 				var/beaker_reagent = R.id
 				if(special_reagent_check(beaker_reagent, treatment_type) || emagged) // Check to see if the reagent actually treats the damage we want, else fall back on defaults. Or if we're emagged we don't even care.
 					inject_beaker = TRUE
