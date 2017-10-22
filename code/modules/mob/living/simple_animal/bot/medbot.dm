@@ -448,7 +448,7 @@
 	var/reagent_id = treatments[treatment_type]
 	if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume) // Prioritise use of the beaker
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id) || !internalsafety)
+			if(!C.reagents.has_reagent(R.id))
 				var/beaker_reagent = R.id
 				if(special_reagent_check(beaker_reagent, treatment_type) || emagged) // Check to see if the reagent actually treats the damage we want, else fall back on defaults. Or if we're emagged we don't even care.
 					inject_beaker = TRUE
@@ -456,6 +456,9 @@
 					break
 				else
 					break
+			else if (!internalsafety) //If they already have our reagent in them, and safety is off, then just leave them be
+				soft_reset()
+				return
 	if(!emagged && check_overdose(patient,reagent_id,injection_amount)) // Now we check to see if it will overdose the patient, unless we're emagged and don't care.
 		soft_reset()
 		return
