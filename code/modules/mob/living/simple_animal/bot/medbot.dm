@@ -456,7 +456,7 @@
 					break
 				else
 					break
-			else if (!internalsafety) //If they already have our reagent in them, and safety is off, then just leave them be
+			else if (!internalsafety && !emagged) //If they already have our reagent in them, and safety is off, then just leave them be, unless we are emagged (in that case use beaker first, then "evil" treatment)
 				soft_reset()
 				return
 	if(!emagged && check_overdose(patient,reagent_id,injection_amount)) // Now we check to see if it will overdose the patient, unless we're emagged and don't care.
